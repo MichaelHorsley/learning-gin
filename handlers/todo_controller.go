@@ -21,6 +21,10 @@ type CreateTodoRequest struct {
 	Title string `json:"title" binding:"required"`
 }
 
+type CreateTodoResponse struct {
+	Id string `json:"id"`
+}
+
 func createTodoHandler(c *gin.Context) {
 	var todo CreateTodoRequest
 	if err := c.ShouldBindJSON(&todo); err != nil {
@@ -28,5 +32,7 @@ func createTodoHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"todoId": "1", "title": todo.Title})
+	response := CreateTodoResponse{Id: "1"}
+
+	c.JSON(http.StatusCreated, response)
 }
