@@ -3,6 +3,8 @@ package handlers
 import (
 	"net/http"
 
+	domain "testing-gin-api/domain"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,6 +33,10 @@ func createTodoHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	domain.SaveNewTodo(domain.Todo{
+		Title: todo.Title,
+	})
 
 	response := CreateTodoResponse{Id: "1"}
 
